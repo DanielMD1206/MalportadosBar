@@ -1,0 +1,34 @@
+---
+import { Picture } from "astro:assets";
+import heroImage from "assets/10405658.jpg";
+import Link from "@components/ui/link.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<main
+  class="grid lg:grid-cols-2 place-items-center pt-16 pb-8 md:pt-12 md:pb-24">
+  <div class="py-6 md:order-1 hidden md:block">
+    <Picture
+      src={heroImage}
+      alt="Astronaut in the air"
+      widths={[200, 400, 600]}
+      sizes="(max-width: 800px) 100vw, 620px"
+      loading="eager"
+      format="avif"
+    />
+  </div>
+  <div>
+    <h1
+      class="text-5xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter">
+      Bievenido a <span
+            class="text-[#B6E3C4]">Malportados Bar</span
+          >
+    </h1>
+    <p class="text-lg mt-4 text-slate-600 max-w-xl">
+      Bienvenidos a Malportados Bar, el rincón donde la rebeldía se encuentra con el buen gusto. 
+      En nuestro bar, celebramos el placer de romper las reglas y disfrutar de la vida al máximo.
+       Ven a disfrutar de una selección inigualable de cócteles innovadores, cervezas y 
+       una atmósfera que invita a la conversación y la diversión. ¡Que empiece la fiesta!
+    </p>
+  </div>
+</main>

@@ -1,0 +1,271 @@
+---
+import Container from "@components/container.astro";
+import Link from "@components/ui/link.astro";
+import Dropdown from "./dropdown.astro";
+import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
+
+const menuitems = [
+  {
+    title: "Features",
+    path: "#",
+    children: [
+      { title: "Action", path: "/" },
+      { title: "Another action", path: "#" },
+      { title: "Dropdown Submenu", path: "#" },
+      { title: "404 Page", path: "/404" },
+    ],
+  },
+  {
+    title: "reserva",
+    path: "/pricing",
+  },
+  {
+    title: "Sobre Nosotros",
+    path: "/about",
+  },
+  {
+    title: "Catalogo",
+    path: "/blog",
+  },
+  {
+    title: "Contactenos",
+    path: "/contact",
+  },
+];
+---
+
+<Container>
+ <header class="flex flex-col lg:flex-row justify-between items-center my-5">
+    <Astronav>
+      <div class="flex w-full lg:w-auto items-center justify-between">
+        <a href="/" class="text-lg">
+          <span class="font-bold text-slate-800">Malportados</span><span class="text-[#B6E3C4]">Bar</span>
+        </a>
+        <div class="block lg:hidden">
+          <MenuIcon class="w-4 h-4 text-gray-800" />
+        </div>
+      </div>
+      <MenuItems class="hidden lg:flex w-full lg:w-auto mt-2 lg:mt-0">
+        <ul class="flex flex-col lg:flex-row lg:gap-3">
+          {menuitems.map((item, index) => (
+            <>
+              {!item.children && (
+                <li key={index}>
+                  <a
+                    href={item.path}
+                    class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-[#168A61]"
+                  >
+                    <span>{item.title}</span>
+                    {item.badge && (
+                      <span class="ml-1 px-2 py-0.5 text-[10px] animate-pulse font-semibold uppercase text-white bg-indigo-600 rounded-full">
+                        New
+                      </span>
+                    )}
+                  </a>
+                </li>
+              )}
+            </>
+          ))}
+        </ul>
+        <div class="lg:hidden flex items-center mt-3 gap-4">
+          <button id="login-button" class="text-gray-600 hover:text-[#168A61]">Log in</button>
+          <button id="signup-button" class="text-[#168A61]">Sign up</button>
+        </div>
+      </MenuItems>
+    </Astronav>
+    <div>
+      <div class="hidden lg:flex items-center gap-4">
+        <button id="login-button-desktop" class="text-gray-600 hover:text-[#168A61]">Iniciar sesión</button>
+        <button id="signup-button-desktop" class="text-[#168A61]">Registrate</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login Modal -->
+  <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full relative">
+      <h2 class="text-lg font-semibold mb-4">Iniciar sesión</h2>
+      <form action="/login" method="POST" class="space-y-4">
+        <div>
+          <label for="login-email" class="block text-gray-700">Correo Electrónico:</label>
+          <input
+            id="login-email"
+            name="email"
+            type="email"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div class="relative">
+          <label for="login-password" class="block text-gray-700">Contraseña:</label>
+          <input
+            id="login-password"
+            name="password"
+            type="password"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md pr-12"
+          />
+          <button type="button" id="toggle-login-password" class="absolute right-3 top-[44px] transform -translate-y-1/2">
+            <svg id="login-eye-icon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+        <div class="flex justify-between items-center">
+          <a href="#" class="text-sm text-blue-600 hover:underline">Recuperar contraseña</a>
+          <!-- Include your CAPTCHA widget here -->
+        </div>
+        <div class="mt-4 flex justify-end space-x-2">
+          <button
+            type="button"
+            id="login-modal-close"
+            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="px-4 py-2 bg-[#168A61] text-white rounded-md"
+          >
+            Iniciar sesión
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Sign Up Modal -->
+  <div id="signup-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full relative">
+      <h2 class="text-lg font-semibold mb-4">Registrarse</h2>
+      <form action="/signup" method="POST" class="space-y-4">
+        <div>
+          <label for="signup-fullname" class="block text-gray-700">Nombre Completo:</label>
+          <input
+            id="signup-fullname"
+            name="fullname"
+            type="text"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div>
+          <label for="signup-id" class="block text-gray-700">Número de Documento:</label>
+          <input
+            id="signup-id"
+            name="id"
+            type="text"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div>
+          <label for="signup-email" class="block text-gray-700">Correo Electrónico:</label>
+          <input
+            id="signup-email"
+            name="email"
+            type="email"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div class="relative">
+          <label for="signup-password" class="block text-gray-700">Contraseña:</label>
+          <input
+            id="signup-password"
+            name="password"
+            type="password"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md pr-12"
+          />
+          <button type="button" id="toggle-signup-password" class="absolute right-3 top-[44px] transform -translate-y-1/2">
+            <svg id="signup-eye-icon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+        <div class="relative">
+          <label for="signup-confirm-password" class="block text-gray-700">Confirmar Contraseña:</label>
+          <input
+            id="signup-confirm-password"
+            name="confirm_password"
+            type="password"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md pr-12"
+          />
+          <button type="button" id="toggle-signup-confirm-password" class="absolute right-3 top-[44px] transform -translate-y-1/2">
+            <svg id="signup-eye-icon-confirm" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+        <div class="flex justify-between items-center">
+          <a href="#" class="text-sm text-blue-600 hover:underline">Recuperar contraseña</a>
+          <!-- Include your CAPTCHA widget here -->
+        </div>
+        <div class="mt-4 flex justify-end space-x-2">
+          <button
+            type="button"
+            id="signup-modal-close"
+            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="px-4 py-2 bg-[#168A61] text-white rounded-md"
+          >
+            Registrarse
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('login-button').addEventListener('click', function() {
+      document.getElementById('login-modal').classList.remove('hidden');
+    });
+    document.getElementById('signup-button').addEventListener('click', function() {
+      document.getElementById('signup-modal').classList.remove('hidden');
+    });
+    document.getElementById('login-button-desktop').addEventListener('click', function() {
+      document.getElementById('login-modal').classList.remove('hidden');
+    });
+    document.getElementById('signup-button-desktop').addEventListener('click', function() {
+      document.getElementById('signup-modal').classList.remove('hidden');
+    });
+    document.getElementById('login-modal-close').addEventListener('click', function() {
+      document.getElementById('login-modal').classList.add('hidden');
+    });
+    document.getElementById('signup-modal-close').addEventListener('click', function() {
+      document.getElementById('signup-modal').classList.add('hidden');
+    });
+
+    // Toggle password visibility
+    const toggleVisibility = (inputId, eyeIconId) => {
+      const input = document.getElementById(inputId);
+      const eyeIcon = document.getElementById(eyeIconId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        eyeIcon.classList.add('text-blue-500');
+      } else {
+        input.type = 'password';
+        eyeIcon.classList.remove('text-blue-500');
+      }
+    };
+
+    document.getElementById('toggle-login-password').addEventListener('click', () => {
+      toggleVisibility('login-password', 'login-eye-icon');
+    });
+    document.getElementById('toggle-signup-password').addEventListener('click', () => {
+      toggleVisibility('signup-password', 'signup-eye-icon');
+    });
+    document.getElementById('toggle-signup-confirm-password').addEventListener('click', () => {
+      toggleVisibility('signup-confirm-password', 'signup-eye-icon-confirm');
+    });
+  </script>
+</Container>

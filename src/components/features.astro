@@ -1,0 +1,68 @@
+---
+// @ts-ignore
+import { Icon } from "astro-icon/components";
+
+const features = [
+  {
+    title: "Calidad",
+    description:
+      "Nos aseguramos de que cada bebida, coctel y cada momento en nuestro bar cumpla con los más altos estándares. La calidad es nuestra promesa.",
+    icon: "bx:bxs-briefcase",
+  },
+  {
+    title: "Responsabilidad",
+    description:
+      "Promovemos el consumo responsable de alcohol y garantizamos un entorno seguro y respetuoso para todos nuestros clientes, conservar la seguridad de nuestros clientes es vital",
+    icon: "bx:bxs-window-alt",
+  },
+  {
+    title: "Innovación",
+    description:
+      "Mantenemos el ambiente fresco y emocionante con nuevas ideas y propuestas. Siempre buscamos ofrecer algo especial que haga de cada visita una experiencia única.",
+    icon: "bx:bxs-data",
+  },
+  {
+    title: "Hospitalidad",
+    description:
+      "Te damos la bienvenida con una actitud amigable y servicial. Queremos que cada visita sea cómoda y agradable, como si estuvieras en tu propio lugar.",
+    icon: "bx:bxs-bot",
+  },
+  {
+    title: "Sostenibilidad",
+    description:
+      "Nos comprometemos con prácticas que minimicen nuestro impacto ambiental. Cada pequeño esfuerzo cuenta para un futuro más verde.",
+    icon: "bx:bxs-file-find",
+  },
+  {
+    title: "Comunidad",
+    description:
+      "Somos un punto de encuentro para amigos, familiares y vecinos, promoviendo un sentido de pertenencia y conexiones auténticas entre los clientes.",
+    icon: "bx:bxs-user",
+  },
+];
+---
+
+<div class="mt-16 md:mt-0">
+  <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight">
+    Conoce un poco de nosotros
+  </h2>
+  <p class="text-lg mt-4 text-slate-600">
+    Estos son algunos de los valores y principios que definimos en <span class="text-[#B6E3C4]">Malportados Bar</span>. Son esenciales para ofrecerte una experiencia memorable y para ganarnos tu confianza. ¡Ven y disfruta con tus amigos o familiares, pasa un buen rato, y que empiece la fiesta!
+  </p>
+</div>
+
+<div class="grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-16">
+  {
+    features.map((item) => (
+      <div class="flex gap-4 items-start">
+        <div class="mt-1 bg-black rounded-full  p-2 w-8 h-8 shrink-0">
+          <Icon class="text-white" name={item.icon} />
+        </div>
+        <div>
+          <h3 class="font-semibold text-lg">{item.title}</h3>{" "}
+          <p class="text-slate-500 mt-2 leading-relaxed">{item.description}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>
